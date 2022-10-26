@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class nave : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class nave : MonoBehaviour
     Rigidbody2D rb;
     public float movespeed;
     public float rotateAmount;
+    public float gainSpeed;
     float rotate;
+    public GameObject points;
+    public GameObject enemy;
 
 
     private void Awake()
@@ -42,6 +46,21 @@ public class nave : MonoBehaviour
 
     private void Update()
     {
-       
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "ponto")
+        {
+            Destroy(collision.gameObject);
+            movespeed += gainSpeed;
+        }
+
+        if(collision.gameObject.tag == "inimigo")
+        {
+            movespeed = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
