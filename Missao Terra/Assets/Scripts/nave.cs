@@ -6,13 +6,21 @@ using UnityEngine.SceneManagement;
 public class nave : MonoBehaviour
 {
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
     public float movespeed;
     public float rotateAmount;
     public float gainSpeed;
-    float rotate;
-    public GameObject points;
+
+    //pode descomentar o [HideInSpector] depois, por enquanto está no editor para debug. Não colocar como 'private' 
+    //[HideInInspector]
+    public int score = 0;
+    
+    private float rotate;
+
+    //public GameObject points;
+    
     public GameObject enemy;
+    
 
 
     private void Awake()
@@ -51,11 +59,16 @@ public class nave : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        /*
         if(collision.gameObject.tag == "ponto")
         {
             Destroy(collision.gameObject);
+
+            pointParticle.SetActive(true);
+
             movespeed += gainSpeed;
         }
+        */
 
         if(collision.gameObject.tag == "inimigo")
         {
