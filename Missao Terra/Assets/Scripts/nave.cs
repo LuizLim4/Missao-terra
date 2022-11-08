@@ -18,6 +18,11 @@ public class nave : MonoBehaviour
     public GameObject jogarNovamente;
     public GameObject sair;
     public GameObject coletavel;
+    public TrailRenderer trailL;
+    public TrailRenderer trailR;
+    private bool trail = true;
+    private float trailTimeout = 0.2f;
+    private float _trailTimeout = 0.2f;
 
     //pode descomentar o [HideInSpector] depois, por enquanto está no editor para debug. Não colocar como 'private' 
     //[HideInInspector]
@@ -34,12 +39,14 @@ public class nave : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
         jogarNovamente.SetActive(false);
         StartCoroutine(spaw());
+        
     }
 
     private void FixedUpdate()
@@ -59,8 +66,19 @@ public class nave : MonoBehaviour
         }
         if (screenBounce.ImOutOfBounds(rb.position))
         {
+            //desabilitar o trail aqui
+
+
+            trailL.emitting = false;
+            trailR.emitting = false;
+            trail = false;
+            _trailTimeout = trailTimeout;
+
             Vector2 newPosition = screenBounce.calculatePosition(rb.position);
             transform.position = newPosition;
+
+            
+
         }
         else
         {
@@ -73,6 +91,20 @@ public class nave : MonoBehaviour
     private void Update()
     {
         CaixaScore.text = "POINTS: " + score.ToString();
+
+        if(!trail)
+        {
+            _trailTimeout -= Time.deltaTime; 
+            if(_trailTimeout <= 0)
+            {
+                trailL.emitting = true;
+                trailR.emitting = true;
+                trail = true;
+            }
+            
+        }
+        
+        //Debug.Log(trailL.emitting);
     }
 
     IEnumerator spaw()

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ponto
   - inimigo
+  - coletavel
+  - points
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - Objetos
   - Water
   - UI
-  - 
+  - PostProcess
   - 
   - 
   - 
