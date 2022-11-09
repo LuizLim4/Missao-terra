@@ -35,12 +35,15 @@ public class Coletavel : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //Destroy(points);
+            
+            Vector2 particulaPosition = gameObject.transform.position;
+            Instantiate(particula, particulaPosition, Quaternion.identity);
             Destroy(gameObject);
-           //pointParticle.SetActive(true);
+            //pointParticle.SetActive(true);
         }
         if (collision.gameObject.tag == "inimigo")
         {
-            print("teste");
+            Debug.Log("teste");
             nave.spaw_colision();
             Destroy(gameObject);
         }
@@ -51,7 +54,7 @@ public class Coletavel : MonoBehaviour
         var main = particula.main;
         if (!particula.IsAlive())
         {
-            print("estou funcionando?");
+            Debug.Log("estou funcionando?");
             //Destroy(pointParticle);
             Destroy(this.gameObject);
         }
