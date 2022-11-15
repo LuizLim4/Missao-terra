@@ -47,8 +47,8 @@ public class Coletavel : MonoBehaviour
             nave.spaw_colision();
             Destroy(gameObject);
         }
-    }
 
+    }
     private void particulaConf()
     {
         var main = particula.main;
