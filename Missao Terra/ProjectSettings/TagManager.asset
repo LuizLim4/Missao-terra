@@ -8,6 +8,7 @@ TagManager:
   - inimigo
   - coletavel
   - points
+  - options
   layers:
   - Default
   - TransparentFX

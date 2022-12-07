@@ -14,12 +14,16 @@ public class nave : MonoBehaviour
     public float time = 2f;
     public bool lose = false;
     public Text CaixaScore;
+    public Animator sheep_animator;
+    public AudioSource som_pontos;
+    public AudioSource som_explosao;
     public screenBounce screenBounce;
     public GameObject jogarNovamente;
     public GameObject sair;
     public GameObject coletavel;
     public TrailRenderer trailL;
     public TrailRenderer trailR;
+    public ParticleSystem turbina;
     private bool trail = true;
     private float trailTimeout = 0.2f;
     private float _trailTimeout = 0.2f;
@@ -39,14 +43,13 @@ public class nave : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        //Planet_spawn();
     }
     // Start is called before the first frame update
     void Start()
     {
         jogarNovamente.SetActive(false);
         StartCoroutine(spaw());
-        
     }
 
     private void FixedUpdate()
@@ -76,9 +79,7 @@ public class nave : MonoBehaviour
 
             Vector2 newPosition = screenBounce.calculatePosition(rb.position);
             transform.position = newPosition;
-
             
-
         }
         else
         {
@@ -137,6 +138,9 @@ public class nave : MonoBehaviour
             jogarNovamente.SetActive(true);
             sair.SetActive(true);
             movespeed = 0;
+            som_explosao.Play();
+            sheep_animator.Play("explosion");
+            Destroy(turbina);
         }
     }
 
@@ -147,7 +151,7 @@ public class nave : MonoBehaviour
             movespeed += gainSpeed;
             score += 10;
             CaixaScore.text = "POINTS: " + score.ToString();
-            
+            som_pontos.Play();
         }
     }
 
@@ -165,6 +169,20 @@ public class nave : MonoBehaviour
         float spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
         Vector2 spawnPosition = new Vector2(spawnX, spawnY);
         Instantiate(coletavel, spawnPosition, Quaternion.identity);
-
     }
+
+    //public void Planet_spawn()
+    //{
+    //    for (int i = 0; i<3; i++)
+    //    {
+    //        float spawnY = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
+    //        float spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
+    //        Vector2 spawnPosition = new Vector2(spawnX, spawnY);
+    //        float scaleRandom = Random.Range(0.5f, 3);
+    //        enemy.transform.localScale = new Vector3(scaleRandom, scaleRandom, scaleRandom);
+    //        Instantiate(enemy, spawnPosition, Quaternion.identity);
+    //    }
+        
+
+    //}
 }
