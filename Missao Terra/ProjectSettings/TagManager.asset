@@ -9,6 +9,7 @@ TagManager:
   - coletavel
   - points
   - options
+  - timoteo
   layers:
   - Default
   - TransparentFX

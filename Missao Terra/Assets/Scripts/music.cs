@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class music : MonoBehaviour
 {
 
-    private AudioSource music_bg;
+    [SerializeField] private AudioSource music_bg;
+    [SerializeField] private Slider sound_slider;
     // Start is called before the first frame update
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        music_bg = GetComponent<AudioSource>();
+        //music_bg = GetComponent<AudioSource>();
     }
     void Start()
     {
@@ -19,8 +21,8 @@ public class music : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void volume_change()
     {
-        
+        music_bg.volume = sound_slider.value;
     }
 }
